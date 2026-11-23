@@ -1,3 +1,3 @@
-Website for showing the shedish parliament. 
+Website for showing the swedish parliament. 
 
 
