@@ -5,7 +5,6 @@ import { reactiveModel } from "./products/mobxReactiveModel.js";
 createRoot(document.getElementById('root')).render(<App model={reactiveModel}/>);
 
 
-
 // For debugging 
 
 window.myModel = reactiveModel;

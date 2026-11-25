@@ -16,4 +16,6 @@ export const model = {
 
   sayHello(){ console.log("Hello from parliament!"); },
 
+
+
 }
