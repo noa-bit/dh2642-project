@@ -4,7 +4,8 @@ import { MainView } from "../views/mainView.jsx";
 export const MainPresenter = observer(
   function MainPresenter(props){
     return (
-      <MainView/>
+      <MainView
+      govYet={props.model.doWeHaveAGovYet}/>
     );
   }
 )

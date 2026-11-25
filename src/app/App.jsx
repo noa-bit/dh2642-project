@@ -6,10 +6,12 @@ import { createHashRouter, RouterProvider } from "react-router-dom";
 // NaivePresenter, only to try it 
 import { MainPresenter } from "../presenters/mainPresenter.jsx";
 
-const App = observer(
+const App = observer( 
+
   function AppRoot(props){
-    return (<MainPresenter/>);
+    return (<MainPresenter model={props.model}/>);
   }
+
 )
 
 export {App};
