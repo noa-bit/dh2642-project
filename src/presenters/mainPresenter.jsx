@@ -5,14 +5,14 @@ export const MainPresenter = observer(
   function MainPresenter(props){
     return (
       <MainView
-      votingsArr={props.model.votingsArr}
+      votingDocsArr={props.model.votingDocsArr}
       onSearchForVotingsACB={onSearchForVotingsACB}/>
     );
 
     function onSearchForVotingsACB(){
       console.log("Clicked search for votings :)");
 
-      props.model.searchForVotings();
+      props.model.searchForVotingDocs();
     }
   }
 )

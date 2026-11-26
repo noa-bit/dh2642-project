@@ -1,7 +1,8 @@
 
 import { PROXY_URL } from "./apiConfig.js";
 
-const URL = PROXY_URL + "/dokumentlista/" ;
+const DOC_URL = PROXY_URL + "/dokumentlista/";
+const VOTE_URL = PROXY_URL + "/voteringar/";
 
 
 function respToJsonACB(resp){ 
@@ -18,9 +19,18 @@ function errorACB(error){
 export function searchDocuments(searchParams){
 
   // For debuging 
-  console.log( URL + "?" + (new URLSearchParams(searchParams)).toString());
+  console.log( DOC_URL + "?" + (new URLSearchParams(searchParams)).toString());
 
-  return fetch(URL + "?" + (new URLSearchParams(searchParams)).toString())
+  return fetch(DOC_URL + "?" + (new URLSearchParams(searchParams)).toString())
     .then(respToJsonACB)
     .catch(errorACB);
+}
+
+export function searchVoteList(searchParams){
+  console.log( VOTE_URL + "?" + (new URLSearchParams(searchParams)).toString());
+
+  return fetch(DOC_URL + "?" + (new URLSearchParams(searchParams)).toString())
+    .then(respToJsonACB)
+    .catch(errorACB);
+
 }

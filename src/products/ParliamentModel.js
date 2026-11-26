@@ -1,14 +1,16 @@
-import { searchDocuments } from "./govSource.js";
+import { searchDocuments, searchVoteList } from "./govSource.js";
 import { resolvePromise } from "./resolvePromise.js";
 
 export const model = {
 
 
-  searchParams: { sok: "", utformat: "json", doktyp: ""},
+  docSearchParams: { sok: "", utformat: "json", doktyp: ""},
 
-  votingsPromiseState: {},
+  voteSearchParams: { sz: "5000", utformat: "json"},
 
-  votingsArr: [],
+  votingDocsPromiseState: {},
+
+  votingDocsArr: [],
 
 
   //Dummy stuff
@@ -30,24 +32,24 @@ export const model = {
 
   //END Dummy stuff
   
-  setDoktyp(type) { this.searchParams["doktyp"] = type; },
+  setDoktyp(type) { this.docSearchParams["doktyp"] = type; },
 
-  searchForVotings(){
+  searchForVotingDocs(){
    
     this.setDoktyp("votering");
 
     //The search promise
-    const prms = searchDocuments(this.searchParams);
+    const prms = searchDocuments(this.docSearchParams);
 
     //Saving it in the promiseState
     resolvePromise(
       prms, 
-      this.votingsPromiseState);
+      this.votingDocsPromiseState);
    
-    //Saving the specific data we are after in our votingsArr when the promiseState is done. 
+    //Saving the specific data we are after in our votingDocsArr when the promiseState is done. 
     prms.then(() => {
-      if(this.votingsPromiseState.data){
-        this.setVotingsArr(this.votingsPromiseState.data.dokumentlista.dokument);
+      if(this.votingDocsPromiseState.data){
+        this.setVotingsArr(this.votingDocsPromiseState.data.dokumentlista.dokument);
       }
     });
 
@@ -59,16 +61,22 @@ export const model = {
     
   },
 
+  searchForVoteList(){
+    
+    searchVoteList(this.voteSearchParams);
+
+  },
+
   setVotingsArr(arr){
-    this.votingsArr = arr;
+    this.votingDocsArr = arr;
   },
 
   addToVotingsArr(arr){
-    this.votingsArr = [...this.votingsArr, ...arr];
+    this.votingDocsArr = [...this.votingDocsArr, ...arr];
   },
 
   getVotingsArr(){
-    return [...this.votingsArr];
+    return [...this.votingDocsArr];
   }
 
   

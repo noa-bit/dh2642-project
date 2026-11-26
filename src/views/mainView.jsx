@@ -3,7 +3,7 @@ export function MainView(props){
     <div>
       <button onClick={onButtonClickACB}>Search for votings</button>
       <div>
-        { (props.votingsArr.length > 0) ? props.votingsArr.map(getLineForDocACB) : "Inga dokument" }
+        { (props.votingDocsArr.length > 0) ? props.votingDocsArr.map(getLineForDocACB) : "Inga dokument" }
       </div>
     </div>
     );
