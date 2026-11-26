@@ -32,7 +32,7 @@ export const model = {
   
   setDoktyp(type) { this.searchParams["doktyp"] = type; },
 
-  getVotings(){
+  searchForVotings(){
    
     this.setDoktyp("votering");
 

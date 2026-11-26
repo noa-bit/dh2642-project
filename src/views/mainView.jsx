@@ -1,14 +1,22 @@
 export function MainView(props){
   return (
-    <div>{getOutputText()}</div>
-  );
+    <div>
+      <button onClick={onButtonClickACB}>Search for votings</button>
+      <div>
+        { (props.voteringsArr !== []) ? props.votingsArr.map(getLineForDocACB) : "Inga dokument" }
+      </div>
+    </div>
+    );
 
-  function getOutputText(){
-    if (props.govYet){
-      return "We have a government!";
+
+    function onButtonClickACB(event){
+      props.onSearchForVotingsACB();
     }
-    else {
-      return "We still don't have a government :/";
+
+    function getLineForDocACB(doc){
+      return (
+        <div key={doc.dok_id}>Tid: {doc.publicerad}. Titel: {doc.titel}</div>
+      );
     }
-  }
+
 }

@@ -5,7 +5,14 @@ export const MainPresenter = observer(
   function MainPresenter(props){
     return (
       <MainView
-      govYet={props.model.doWeHaveAGovYet}/>
+      votingsArr={props.model.votingsArr}
+      onSearchForVotingsACB={onSearchForVotingsACB}/>
     );
+
+    function onSearchForVotingsACB(){
+      console.log("Clicked search for votings :)");
+
+      props.model.searchForVotings();
+    }
   }
 )
