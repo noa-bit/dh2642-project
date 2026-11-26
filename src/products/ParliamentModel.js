@@ -1,11 +1,17 @@
 import { searchDocuments } from "./govSource.js";
+import { resolvePromise } from "./resolvePromise.js";
 
 export const model = {
 
 
   searchParams: { sok: "", utformat: "json", doktyp: ""},
 
-  setDoktyp(type) { this.searchParams["doktyp"] = type; },
+  votingsPromiseState: {},
+
+
+
+
+
 
 
   //Dummy attribute
@@ -24,13 +30,18 @@ export const model = {
 
   sayHello(){ console.log("Hello from parliament!"); },
 
+  
+  setDoktyp(type) { this.searchParams["doktyp"] = type; },
 
   getVotings(){
    
     this.setDoktyp("votering");
 
-    return searchDocuments(this.searchParams);
+    resolvePromise(
+      searchDocuments(this.searchParams), 
+      this.votingsPromiseState);
   }
 
+  
 
 }
