@@ -1,4 +1,12 @@
+import { searchDocuments } from "./govSource.js";
+
 export const model = {
+
+
+  searchParams: { sok: "", utformat: "json", doktyp: ""},
+
+  setDoktyp(type) { this.searchParams["doktyp"] = type; },
+
 
   //Dummy attribute
   doWeHaveAGovYet : false,
@@ -16,6 +24,13 @@ export const model = {
 
   sayHello(){ console.log("Hello from parliament!"); },
 
+
+  getVotings(){
+   
+    this.setDoktyp("votering");
+
+    return searchDocuments(this.searchParams);
+  }
 
 
 }
