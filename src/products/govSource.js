@@ -1,6 +1,5 @@
 
 import { PROXY_URL } from "./apiConfig.js";
-import { resolvePromise } from "./resolvePromise.js";
 
 const URL = PROXY_URL;
 
