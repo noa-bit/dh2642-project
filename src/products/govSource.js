@@ -1,7 +1,7 @@
 
 import { PROXY_URL } from "./apiConfig.js";
 
-const URL = PROXY_URL;
+const URL = PROXY_URL + "/dokumentlista/" ;
 
 
 function respToJsonACB(resp){ 
