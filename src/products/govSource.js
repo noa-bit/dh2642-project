@@ -1,8 +1,8 @@
 
 import { PROXY_URL } from "./apiConfig.js";
 
-const DOC_URL = PROXY_URL + "/dokumentlista/";
-const VOTE_URL = PROXY_URL + "/voteringar/";
+const DOC_URL = PROXY_URL + "dokumentlista/";
+const VOTE_URL = PROXY_URL + "voteringlista/";
 
 
 function respToJsonACB(resp){ 
@@ -29,7 +29,7 @@ export function searchDocuments(searchParams){
 export function searchVoteList(searchParams){
   console.log( VOTE_URL + "?" + (new URLSearchParams(searchParams)).toString());
 
-  return fetch(DOC_URL + "?" + (new URLSearchParams(searchParams)).toString())
+  return fetch(VOTE_URL + "?" + (new URLSearchParams(searchParams)).toString())
     .then(respToJsonACB)
     .catch(errorACB);
 

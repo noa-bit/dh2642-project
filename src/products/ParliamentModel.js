@@ -10,7 +10,11 @@ export const model = {
 
   votingDocsPromiseState: {},
 
+  votingListPromiseState: {},
+
   votingDocsArr: [],
+
+  votesArr: [],
 
 
   //Dummy stuff
@@ -49,7 +53,7 @@ export const model = {
     //Saving the specific data we are after in our votingDocsArr when the promiseState is done. 
     prms.then(() => {
       if(this.votingDocsPromiseState.data){
-        this.setVotingsArr(this.votingDocsPromiseState.data.dokumentlista.dokument);
+        this.setVotingDocsArr(this.votingDocsPromiseState.data.dokumentlista.dokument);
       }
     });
 
@@ -63,12 +67,26 @@ export const model = {
 
   searchForVoteList(){
     
-    searchVoteList(this.voteSearchParams);
+    const prms = searchVoteList(this.voteSearchParams);
+
+    resolvePromise(
+      prms, 
+      this.votingListPromiseState);
+
+    prms.then(() => {
+      if(this.votingListPromiseState.data){
+        this.setVotesArr(this.votingListPromiseState.data.voteringlista.votering);
+      }
+    })
 
   },
 
-  setVotingsArr(arr){
-    this.votingDocsArr = arr;
+  setVotingDocsArr(arr){
+    this.votingDocsArr = [...arr];
+  },
+
+  setVotesArr(arr){
+    this.votesArr = [...arr];
   },
 
   addToVotingsArr(arr){
