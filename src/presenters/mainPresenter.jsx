@@ -17,6 +17,8 @@ export const MainPresenter = observer(
     function onChooseDocumentACB(id){
 
       props.model.searchForDocument(id);
+
+      window.location.hash="#/doc";
     }
   }
 )

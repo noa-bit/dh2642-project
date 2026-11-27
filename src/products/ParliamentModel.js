@@ -1,5 +1,6 @@
 import { searchDocumentList, searchVoteList, searchDocument } from "./govSource.js";
 import { resolvePromise } from "./resolvePromise.js";
+import { parseHtmlToJson } from "./utilities.js";
 
 export const model = {
 
@@ -85,7 +86,11 @@ export const model = {
       this.docPromiseState,
       ()=>{
         if(this.docPromiseState?.data?.dokumentstatus?.dokument?.html){
-          this.currentDocHtml = this.docPromiseState.data.dokumentstatus.dokument.html;
+
+          this.setCurrentDocHtml(this.docPromiseState.data.dokumentstatus.dokument.html);
+
+          this.setCurrentDoc(parseHtmlToJson(this.currentDocHtml));
+
         }
       }
     );
@@ -105,7 +110,11 @@ export const model = {
 
   getVotingsArr(){
     return [...this.votingDocsArr];
-  }
+  },
+
+  setCurrentDocHtml(docHtml){ this.currentDocHtml = docHtml; },
+
+  setCurrentDoc(doc){ this.currentDoc = doc; },
 
   
 
