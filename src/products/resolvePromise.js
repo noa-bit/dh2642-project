@@ -1,4 +1,4 @@
-export function resolvePromise(promise, promiseState){
+export function resolvePromise(promise, promiseState, callback = ()=>{}){
   /*
     console.log("promiseState:", promiseState);
   console.log("is object:", typeof promiseState);
@@ -18,6 +18,9 @@ export function resolvePromise(promise, promiseState){
   function successACB(result){
     if(promiseState.promise===promise){
       promiseState.data= result;
+      
+      //Callback we give it to run when the promise is resolved
+      callback();
     }
   }
   function failureACB(error){
@@ -27,5 +30,6 @@ export function resolvePromise(promise, promiseState){
   }
 
   promiseState.promise?.then(successACB).catch(failureACB);
-
+  
+  return true;
 }

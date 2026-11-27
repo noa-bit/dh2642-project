@@ -15,8 +15,17 @@ export function MainView(props){
 
     function getLineForDocACB(doc){
       return (
-        <div key={doc.dok_id}>Tid: {doc.publicerad}. Titel: {doc.titel}</div>
+        <div key={doc.dok_id}>
+          <div>{doc.titel}</div>
+          <div>Tid: {doc.publicerad}, id: {doc.dok_id}
+          <button onClick={() => {onChooseACB(doc.dok_id)} }>choose</button>
+        </div>
+        </div>
       );
+
+      function onChooseACB(id){
+        props.onChooseDocumentACB(id); 
+      }
     }
 
 }

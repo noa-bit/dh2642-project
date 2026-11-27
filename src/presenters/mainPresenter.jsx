@@ -6,13 +6,17 @@ export const MainPresenter = observer(
     return (
       <MainView
       votingDocsArr={props.model.votingDocsArr}
-      onSearchForVotingsACB={onSearchForVotingsACB}/>
+      onSearchForVotingsACB={onSearchForVotingsACB}
+      onChooseDocumentACB={onChooseDocumentACB}/>
     );
 
     function onSearchForVotingsACB(){
-      console.log("Clicked search for votings :)");
-
       props.model.searchForVotingDocs();
+    }
+
+    function onChooseDocumentACB(id){
+
+      props.model.searchForDocument(id);
     }
   }
 )

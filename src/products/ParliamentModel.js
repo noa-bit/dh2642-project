@@ -1,21 +1,22 @@
-import { searchDocuments, searchVoteList } from "./govSource.js";
+import { searchDocumentList, searchVoteList, searchDocument } from "./govSource.js";
 import { resolvePromise } from "./resolvePromise.js";
 
 export const model = {
 
-
+  // search params 
   docSearchParams: { sok: "", utformat: "json", doktyp: ""},
-
   voteSearchParams: { sz: "5000", utformat: "json"},
 
+  // promise states
   votingDocsPromiseState: {},
-
   votingListPromiseState: {},
+  docPromiseState: {},
 
+  // data structures for gathering data from fetches
   votingDocsArr: [],
-
   votesArr: [],
-
+  currentDocHtml: "",
+  currentDoc: {},
 
   //Dummy stuff
   //Dummy attribute
@@ -43,19 +44,18 @@ export const model = {
     this.setDoktyp("votering");
 
     //The search promise
-    const prms = searchDocuments(this.docSearchParams);
 
     //Saving it in the promiseState
     resolvePromise(
-      prms, 
-      this.votingDocsPromiseState);
+      searchDocumentList(this.docSearchParams),
+      this.votingDocsPromiseState,
+      ()=>{
+        //Saving the specific data we are after in our votingDocsArr when the promiseState is done. 
+        if(this.votingDocsPromiseState.data){
+          this.setVotingDocsArr(this.votingDocsPromiseState.data.dokumentlista.dokument);
+        };
    
-    //Saving the specific data we are after in our votingDocsArr when the promiseState is done. 
-    prms.then(() => {
-      if(this.votingDocsPromiseState.data){
-        this.setVotingDocsArr(this.votingDocsPromiseState.data.dokumentlista.dokument);
-      }
-    });
+      });
 
 
     // I (Leo) am not sure how to do this the right way. PromiseState seems useful to gather data
@@ -67,18 +67,28 @@ export const model = {
 
   searchForVoteList(){
     
-    const prms = searchVoteList(this.voteSearchParams);
 
     resolvePromise(
-      prms, 
-      this.votingListPromiseState);
+      searchVoteList(this.voteSearchParams),
+      this.votingListPromiseState,
+      ()=>{
+        if(this.votingListPromiseState.data){
+          this.setVotesArr(this.votingListPromiseState.data.voteringlista.votering);
+        }
+      });
 
-    prms.then(() => {
-      if(this.votingListPromiseState.data){
-        this.setVotesArr(this.votingListPromiseState.data.voteringlista.votering);
+  },
+
+  searchForDocument(id){
+    resolvePromise(
+      searchDocument(id),
+      this.docPromiseState,
+      ()=>{
+        if(this.docPromiseState?.data?.dokumentstatus?.dokument?.html){
+          this.currentDocHtml = this.docPromiseState.data.dokumentstatus.dokument.html;
+        }
       }
-    })
-
+    );
   },
 
   setVotingDocsArr(arr){
